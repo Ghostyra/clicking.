@@ -1,24 +1,21 @@
 import logging
 from pynput.mouse import Button
 from pynput import mouse
-from ctypes import wintypes, windll, create_unicode_buffer
+from ctypes import windll, create_unicode_buffer
+from typing import Optional
 
 class Keylogger:
     def __init__(self):
         logging.basicConfig(filename="mouse_log.csv", level=logging.INFO, format="%(asctime)s.%(message)s")
         self.listener()
 
-    def get_foreground_window_title(self):
+    def get_foreground_window_title(self) -> Optional[str]:
         hWnd = windll.user32.GetForegroundWindow()
         length = windll.user32.GetWindowTextLengthW(hWnd)
         buf = create_unicode_buffer(length + 1)
         windll.user32.GetWindowTextW(hWnd, buf, length + 1)
 
-        # 1-liner alternative: return buf.value if buf.value else None
-        if buf.value:
-            return buf.value
-        else:
-            return "None"
+        return buf.value if buf.value else "None"
 
     def on_move(self, x, y):
         logging.info("{0}.{1}.None.None.Move.".format(x, y) + self.get_foreground_window_title())

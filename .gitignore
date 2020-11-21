@@ -1,8 +1,6 @@
 mouse_data
-hep.txt
-README.md
-mouse_log.csv
-.idea
-Lib/site-packages
+Lib
 Scripts
-__pycache__
+Include
+hep.txt
+mouse_log.csv

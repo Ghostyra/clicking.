@@ -4,6 +4,7 @@ from pynput import mouse
 from ctypes import windll, create_unicode_buffer
 from typing import Optional
 
+
 class Keylogger:
     def __init__(self):
         logging.basicConfig(filename="mouse_log.csv", level=logging.INFO, format="%(asctime)s.%(message)s")
@@ -32,4 +33,4 @@ class Keylogger:
         with mouse.Listener(
                 on_move=self.on_move,
                 on_click=self.on_click) as listener:
-                listener.join()
+            listener.join()

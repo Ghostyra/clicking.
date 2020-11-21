@@ -4,3 +4,5 @@ Scripts
 Include
 hep.txt
 mouse_log.csv
+__pycache__
+.idea

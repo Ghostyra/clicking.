@@ -1,8 +1,8 @@
-mouse_data
-Lib
-Scripts
+mouse_data/
+Lib/
+Scripts/
 Include
 hep.txt
 mouse_log.csv
-__pycache__
+__pycache__/
 .idea

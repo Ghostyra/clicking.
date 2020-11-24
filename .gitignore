@@ -1,4 +1,5 @@
 mouse_data/
+venv/
 Lib/
 Scripts/
 Include

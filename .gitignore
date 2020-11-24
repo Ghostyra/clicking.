@@ -4,6 +4,7 @@ Lib/
 Scripts/
 Include
 hep.txt
+pyvenv.cfg
 mouse_log.csv
 __pycache__/
 .idea

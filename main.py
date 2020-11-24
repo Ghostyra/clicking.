@@ -14,7 +14,7 @@ def save_csv():
                  " ({0} x {1})".format(monitors[0].width, monitors[0].height) +
                  ".csv")
 
-    header = r"date|x|y|press_release|button_type|action_type|git active_window"
+    header = r"date|x|y|button_type|press_release|action_type|active_window"
     with open(save_path, "w") as file:
         with open("mouse_log.csv", "r+") as f:
             data = f.read()

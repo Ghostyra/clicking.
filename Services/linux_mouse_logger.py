@@ -6,8 +6,6 @@ from Base.mouselogger_base import MouseLoggerBase
 
 
 class LinuxMouseLogger(MouseLoggerBase):
-    pass
-
     def __init__(self):
         super().__init__()
 

@@ -6,12 +6,12 @@ from pynput import mouse
 
 class MouseLoggerBase(object):
     def __init__(self):
-        self.buttons_dict = {Button.left: "left.Click", Button.right: "right.Click"}
+        self.buttons_dict = {Button.left: "left", Button.right: "right"}
         self.logging = logging
         self.logging.basicConfig(filename="mouse_log.csv", level=logging.INFO, format="%(asctime)s|%(message)s")
         self.listener()
 
-    def get_foreground_window_title(self) -> Optional[str]:
+    def get_foreground_window_title(self):
         raise NotImplemented
 
     def on_move(self, x, y):
@@ -21,7 +21,7 @@ class MouseLoggerBase(object):
         if button == Button.middle:
             return False
         self.logging.info("{0}|{1}|{2}|{3}|".format(x, y, self.buttons_dict[button], (
-            "pressed" if pressed else "released")) + self.get_foreground_window_title())
+            "pressed" if pressed else "released")) + "click|" + self.get_foreground_window_title())
 
     def listener(self):
         with mouse.Listener(

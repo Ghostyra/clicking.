@@ -5,8 +5,6 @@ from Base.mouselogger_base import MouseLoggerBase
 
 
 class WindowsMouseLogger(MouseLoggerBase):
-    pass
-
     def __init__(self):
         super().__init__()
 

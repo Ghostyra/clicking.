@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from screeninfo import get_monitors
 from datetime import datetime
 from sys import platform
@@ -7,8 +7,8 @@ from sys import platform
 def save_csv():
     dt = datetime.now().replace(second=0, microsecond=0).strftime('%d.%m.%Y %H.%M')
     monitors = get_monitors()
-    if not os.path.isdir("mouse_data"):
-        os.mkdir("mouse_data")
+
+    Path("mouse_data").mkdir(exist_ok=True)
 
     save_path = (r"mouse_data/" + dt +
                  " ({0} x {1})".format(monitors[0].width, monitors[0].height) +
@@ -20,19 +20,20 @@ def save_csv():
             data = f.read()
             file.write(header + "\n" + data)
 
-    print(os.path.abspath(save_path))
+    print(Path(save_path).resolve())
 
 
 class Main:
     def __init__(self):
-        if os.path.isfile("mouse_log.csv"):
-            os.remove("mouse_log.csv")
+        Path("mouse_log.csv").unlink(missing_ok=True)
         if platform == "win32":
             from Services.windows_mouse_logger import WindowsMouseLogger
-            WindowsMouseLogger()
+            win_logger = WindowsMouseLogger()
+            win_logger.listener()
         else:
             from Services.linux_mouse_logger import LinuxMouseLogger
-            LinuxMouseLogger()
+            linux_logger = LinuxMouseLogger()
+            linux_logger.listener()
         save_csv()
 
 

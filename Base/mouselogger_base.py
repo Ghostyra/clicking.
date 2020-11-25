@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 from pynput.mouse import Button
 from pynput import mouse
 
@@ -9,7 +8,6 @@ class MouseLoggerBase(object):
         self.buttons_dict = {Button.left: "left", Button.right: "right"}
         self.logging = logging
         self.logging.basicConfig(filename="mouse_log.csv", level=logging.INFO, format="%(asctime)s|%(message)s")
-        self.listener()
 
     def get_foreground_window_title(self):
         raise NotImplemented

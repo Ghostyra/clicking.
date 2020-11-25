@@ -1,4 +1,3 @@
-from typing import Optional
 import Xlib
 import Xlib.display
 
@@ -9,7 +8,7 @@ class LinuxMouseLogger(MouseLoggerBase):
     def __init__(self):
         super().__init__()
 
-    def get_foreground_window_title(self) -> Optional[str]:
+    def get_foreground_window_title(self):
         display = Xlib.display.Display()
         window = display.get_input_focus().focus
         wm_class = window.get_wm_class()

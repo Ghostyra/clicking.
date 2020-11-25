@@ -28,12 +28,18 @@ class Main:
         Path("mouse_log.csv").unlink(missing_ok=True)
         if platform == "win32":
             from Services.windows_mouse_logger import WindowsMouseLogger
-            win_logger = WindowsMouseLogger()
-            win_logger.listener()
+            from Base.keyboard_base import KeyboardLoggerBase
+
+            mouse_win_logger = WindowsMouseLogger()
+            mouse_win_logger.start_listener()
+
+            keyboard_win_logger = KeyboardLoggerBase()
+            keyboard_win_logger.start_listener()
         else:
             from Services.linux_mouse_logger import LinuxMouseLogger
+
             linux_logger = LinuxMouseLogger()
-            linux_logger.listener()
+            linux_logger.start_listener()
         save_csv()
 
 

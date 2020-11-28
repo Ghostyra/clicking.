@@ -2,6 +2,7 @@ from pynput.mouse import Button
 from pynput import mouse
 from abc import abstractmethod
 import logging
+import threading
 
 
 class MouseLoggerBase:
@@ -18,6 +19,8 @@ class MouseLoggerBase:
 
     def on_move(self, x, y):
         print(x)
+        if threading.active_count() == 2:
+            self.listener_mouse.stop()
         self.logging.info("{0}|{1}|None|None|Move|".format(x, y) + self.get_foreground_window_title())
 
     def on_click(self, x, y, button, pressed):
@@ -26,3 +29,6 @@ class MouseLoggerBase:
 
     def start_listener(self):
         self.listener_mouse.start()
+
+    def join_listener(self):
+        self.listener_mouse.join()

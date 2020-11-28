@@ -31,15 +31,25 @@ class Main:
             from Base.keyboard_base import KeyboardLoggerBase
 
             mouse_win_logger = WindowsMouseLogger()
-            mouse_win_logger.start_listener()
-
             keyboard_win_logger = KeyboardLoggerBase()
+
+            mouse_win_logger.start_listener()
             keyboard_win_logger.start_listener()
+
+            mouse_win_logger.join_listener()
+            keyboard_win_logger.join_listener()
         else:
             from Services.linux_mouse_logger import LinuxMouseLogger
+            from Base.keyboard_base import KeyboardLoggerBase
 
-            linux_logger = LinuxMouseLogger()
-            linux_logger.start_listener()
+            mouse_win_logger = LinuxMouseLogger()
+            keyboard_win_logger = KeyboardLoggerBase()
+
+            mouse_win_logger.start_listener()
+            keyboard_win_logger.start_listener()
+
+            mouse_win_logger.join_listener()
+            keyboard_win_logger.join_listener()
         save_csv()
 
 

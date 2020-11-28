@@ -1,19 +1,15 @@
 from pynput import keyboard
-from pynput.keyboard import Key
 
 
 class KeyboardLoggerBase:
     def __init__(self):
-        self.listener_keyboard = keyboard.Listener(on_press=self.on_press)
+        self.listener_keyboard = keyboard.GlobalHotKeys({'<ctrl>+<alt>+h': self.stop_threads})
 
-    def on_press(self, key):
-        if key == Key.caps_lock:
-            self.listener_keyboard.stop()
-        try:
-            print(key.char)
-            pass
-        except AttributeError:
-            pass
+    def stop_threads(self):
+        self.listener_keyboard.stop()
 
     def start_listener(self):
         self.listener_keyboard.start()
+
+    def join_listener(self):
+        self.listener_keyboard.join()

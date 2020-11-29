@@ -25,31 +25,28 @@ def save_csv():
 
 class Main:
     def __init__(self):
+        from Base.keyboard_base import KeyboardLoggerBase
+
         Path("mouse_log.csv").unlink(missing_ok=True)
+        keyboard_logger = KeyboardLoggerBase()
+        keyboard_logger.start_listener()
+
         if platform == "win32":
             from Services.windows_mouse_logger import WindowsMouseLogger
-            from Base.keyboard_base import KeyboardLoggerBase
 
             mouse_win_logger = WindowsMouseLogger()
-            keyboard_win_logger = KeyboardLoggerBase()
-
             mouse_win_logger.start_listener()
-            keyboard_win_logger.start_listener()
 
             mouse_win_logger.join_listener()
-            keyboard_win_logger.join_listener()
+            keyboard_logger.join_listener()
         else:
             from Services.linux_mouse_logger import LinuxMouseLogger
-            from Base.keyboard_base import KeyboardLoggerBase
 
-            mouse_win_logger = LinuxMouseLogger()
-            keyboard_win_logger = KeyboardLoggerBase()
+            mouse_linux_logger = LinuxMouseLogger()
+            mouse_linux_logger.start_listener()
 
-            mouse_win_logger.start_listener()
-            keyboard_win_logger.start_listener()
-
-            mouse_win_logger.join_listener()
-            keyboard_win_logger.join_listener()
+            mouse_linux_logger.join_listener()
+            keyboard_logger.join_listener()
         save_csv()
 
 

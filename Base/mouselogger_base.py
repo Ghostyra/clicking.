@@ -18,7 +18,6 @@ class MouseLoggerBase:
         pass
 
     def on_move(self, x, y):
-        print(x)
         if threading.active_count() == 2:
             self.listener_mouse.stop()
         self.logging.info("{0}|{1}|None|None|Move|".format(x, y) + self.get_foreground_window_title())

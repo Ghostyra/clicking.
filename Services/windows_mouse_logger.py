@@ -3,6 +3,7 @@ from ctypes import windll, create_unicode_buffer
 from Base.mouselogger_base import MouseLoggerBase
 
 
+# Class implementation for Windows
 class WindowsMouseLogger(MouseLoggerBase):
     def __init__(self):
         super().__init__()

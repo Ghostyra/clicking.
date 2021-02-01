@@ -4,6 +4,7 @@ from datetime import datetime
 from sys import platform
 
 
+# Saving the received information, screen resolution, and date
 def save_csv():
     dt = datetime.now().replace(second=0, microsecond=0).strftime('%d.%m.%Y %H.%M')
     monitors = get_monitors()
@@ -31,6 +32,7 @@ class Main:
         keyboard_logger = KeyboardLoggerBase()
         keyboard_logger.start_listener()
 
+        # Implementation for different OS
         if platform == "win32":
             from Services.windows_mouse_logger import WindowsMouseLogger
 
@@ -47,11 +49,12 @@ class Main:
 
             mouse_linux_logger.join_listener()
             keyboard_logger.join_listener()
+
         save_csv()
 
 
 if __name__ == "__main__":
     print("Your mouse actions are tracked!")
-    print("To end tracking press the middle mouse button")
+    print("To end tracking press <ctrl>+<alt>+h")
     Main()
     input("Press Enter to continue...")

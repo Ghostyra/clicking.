@@ -4,6 +4,7 @@ import Xlib.display
 from Base.mouselogger_base import MouseLoggerBase
 
 
+# Class implementation for Linux
 class LinuxMouseLogger(MouseLoggerBase):
     def __init__(self):
         super().__init__()
